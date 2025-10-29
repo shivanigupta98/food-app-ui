@@ -31,8 +31,10 @@
     border: 1px solid black;
     cursor: pointer;
 }
-.search{
-    padding: 10px;
+.filter-btn{
+    margin: 10px;
+    padding: 5px;
+    cursor: pointer;
 }
 .res-logo{
     width: 100%;

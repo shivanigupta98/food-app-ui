@@ -1,0 +1,2 @@
+export const CDN_URL = "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/";
+export const LOGO_URL = "https://static.vecteezy.com/system/resources/thumbnails/052/792/818/small_2x/restaurant-logo-design-vector.jpg";

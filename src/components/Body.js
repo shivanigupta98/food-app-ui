@@ -2,6 +2,7 @@ import ResturantCard from "./RestaurantCard";
 import resList from "../utils/mockData";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 
 const Body = () => {
     const [listOfRestaurants, setListOfRestaurants] = useState([]);
@@ -15,10 +16,16 @@ const Body = () => {
     }, []);
 
     const fetchData = async () => {
-        const data = await fetch(`https://cors-anywhere.herokuapp.com/https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9175337&lng=77.65045719999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING`);
+        const data = await fetch(
+            `https://api.allorigins.win/get?url=${encodeURIComponent(
+                "https://namastedev.com/api/v1/listRestaurants"
+            )}`
+        );
         const json = await data.json();
-        setListOfRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-        setFilteredRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+        const jsonData = JSON.parse(json.contents);
+        console.log(jsonData?.data.data.cards[1].card.card.gridElements.infoWithStyle.restaurants);
+        setListOfRestaurants(jsonData?.data.data.cards[1].card.card.gridElements.infoWithStyle.restaurants);
+        setFilteredRestaurants(jsonData?.data?.data.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
     }
 
     return listOfRestaurants.length === 0 ? <Shimmer /> : (
@@ -44,7 +51,7 @@ const Body = () => {
             <div className="res-container">
                 {
                     filteredRestaurants.map((resturant) =>
-                        <ResturantCard resData={resturant} key={resturant.info.id} />)
+                       <Link to={"/restaurants/"+resturant.info.id} key={resturant.info.id}> <ResturantCard resData={resturant} /> </Link>)
                 }
             </div>
         </div>

@@ -3,13 +3,14 @@ import resList from "../utils/mockData";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
     const [listOfRestaurants, setListOfRestaurants] = useState([]);
     const [filteredRestaurants, setFilteredRestaurants] = useState([]);
     const [searchText, setSearchText] = useState("");
 
-    console.log("Body Rendered");
+    const onlineStatus = useOnlineStatus();
 
     useEffect(() => {
         fetchData();
@@ -27,6 +28,12 @@ const Body = () => {
         setListOfRestaurants(jsonData?.data.data.cards[1].card.card.gridElements.infoWithStyle.restaurants);
         setFilteredRestaurants(jsonData?.data?.data.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
     }
+
+    if (!onlineStatus) return (
+        <>
+            <h1>You are offline!! Please check your internet connection;</h1>
+        </>
+    )
 
     return listOfRestaurants.length === 0 ? <Shimmer /> : (
         <div className="body">
@@ -51,7 +58,7 @@ const Body = () => {
             <div className="res-container">
                 {
                     filteredRestaurants.map((resturant) =>
-                       <Link to={"/restaurants/"+resturant.info.id} key={resturant.info.id}> <ResturantCard resData={resturant} /> </Link>)
+                        <Link to={"/restaurants/" + resturant.info.id} key={resturant.info.id}> <ResturantCard resData={resturant} /> </Link>)
                 }
             </div>
         </div>

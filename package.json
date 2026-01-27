@@ -10,10 +10,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@tailwindcss/postcss": "^4.1.18",
+    "init": "^0.1.2",
+    "npx": "^10.2.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router": "^6.30.1",
-    "react-router-dom": "^6.30.1"
+    "react-router-dom": "^6.30.1",
+    "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
     "parcel": "^2.16.0"
